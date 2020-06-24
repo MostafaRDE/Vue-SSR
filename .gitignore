@@ -1,0 +1,8 @@
+/node_modules/
+/.idea/
+/dist/
+/sessions/
+sessions/
+/uploads/
+package-lock.json
+yarn.lock
