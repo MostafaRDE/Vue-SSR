@@ -7,10 +7,10 @@ export function createRouter () {
     return new Router({
         mode: 'history',
         routes: [
-            // {
-            //     path: '/',
-            //     component: () => import ('../views/Home.vue'),
-            // },
+            {
+                path: '/',
+                component: () => import ('../views/Home.vue'),
+            },
         ],
     })
 }

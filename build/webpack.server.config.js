@@ -54,6 +54,7 @@ module.exports = merge(baseConfig, {
         new WebpackBar({
             name: 'Server',
             color: '#ffaa00',
+            profile: true,
         }),
     ],
 })

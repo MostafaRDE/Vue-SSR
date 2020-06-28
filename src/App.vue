@@ -1,6 +1,6 @@
 <template>
     <div id="system">
-        <router-view></router-view>
+        fdfsdf
     </div>
 </template>
 
@@ -8,6 +8,6 @@
     export default {
         name: "App",
 
-        // title: ()  => 'fdfdfd',
+        title: ()  => 'fdfdfd',
     }
 </script>

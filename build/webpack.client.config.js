@@ -31,6 +31,7 @@ module.exports = merge(baseConfig, {
         new VueSSRClientPlugin(),
         new WebpackBar({
             name: 'Client',
+            profile: true,
         }),
     ],
 })

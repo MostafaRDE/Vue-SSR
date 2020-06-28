@@ -3,8 +3,8 @@ const path = require('path')
 const MFS = require('memory-fs')
 const webpack = require('webpack')
 const chokidar = require('chokidar')
-const clientConfig = require('./webpack.client.config.js')
-const serverConfig = require('./webpack.server.config.js')
+const clientConfig = require('./webpack.client.config')
+const serverConfig = require('./webpack.server.config')
 
 const readFile = (fs, file) => {
     try {
@@ -39,7 +39,8 @@ module.exports = function setupDevServer (app, templatePath, cb) {
     })
 
     // modify client config to work with hot middleware
-    clientConfig.entry.app = [ 'webpack-hot-middleware/client', clientConfig.entry.app ]
+    if (typeof clientConfig.entry.app === 'string')
+        clientConfig.entry.app = [ 'webpack-hot-middleware/client', clientConfig.entry.app ]
     clientConfig.output.filename = '[name].js'
     clientConfig.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
@@ -53,7 +54,7 @@ module.exports = function setupDevServer (app, templatePath, cb) {
         noInfo: true,
     })
     app.use(devMiddleware)
-    clientCompiler.plugin('done', stats => {
+    clientCompiler.hooks.done.tap('BuildStatsPlugin', (stats) => {
         stats = stats.toJson()
         stats.errors.forEach(err => console.error(err))
         stats.warnings.forEach(err => console.warn(err))

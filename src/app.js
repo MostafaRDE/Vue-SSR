@@ -5,7 +5,7 @@ import { createStore } from './store'
 import { sync } from 'vuex-router-sync'
 
 // Import mixins
-// import './mixins'
+import './mixins'
 
 // export a factory function for creating fresh app, router and store
 // instances
