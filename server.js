@@ -1,12 +1,10 @@
 // Node locally modules
 const path = require('path')
-// const fs = require('fs')
 
 // Packages
 const chalk = require('chalk')
 const portfinder = require('portfinder')
 const express = require('express')
-// const csrf = require('csurf')
 const LRU = require('lru-cache')
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -17,11 +15,13 @@ let isProd = process.env.NODE_ENV === 'production'
 // Create main app-server instance
 const app = express()
 
+
+// <editor-fold desc="Rendering commands">
+
 let readyPromise = null, renderer = null
 
-console.log(isProd)
 if (isProd) {
-    readyPromise = require('./build/setup-dev-server')(
+    readyPromise = require('./build/setup-prod-server')(
         app,
         path.resolve(__dirname, './public/index.template.html'),
         (bundle, options) => {
@@ -37,6 +37,36 @@ else {
             renderer = createRenderer(bundle, options)
         },
     )
+}
+
+function createRenderer(bundle, options) {
+    try {
+        return createBundleRenderer(bundle, Object.assign(options, {
+            // for component caching
+            cache: new LRU({ max: 1000, maxAge: 1000 * 60 * 15 }),
+            // this is only needed when vue-server-renderer is npm-linked
+            basedir: resolve('./dist'),
+            // inject: false,
+            renderStyles: () => {},
+            renderState: () => {},
+            renderScripts: () =>{},
+            shouldPreload: (file, type) => {
+                // https://fetch.spec.whatwg.org/#concept-request-destination
+                if (type === 'script' || type === 'style')
+                    return true
+                if (type === 'font')
+                    return /\.woff2$/.test(file)
+                if (type === 'image') {}
+            },
+            // shouldPrefetch: (file, type) => false,
+            shouldPrefetch: () => false,
+            // recommended for performance
+            runInNewContext: false,
+        }))
+    }
+    catch (e) {
+        console.error(e)
+    }
 }
 
 function render(req, res) {
@@ -76,58 +106,16 @@ function render(req, res) {
     })
 }
 
-function createRenderer(bundle, options) {
-    try {
-        return createBundleRenderer(bundle, Object.assign(options, {
-            // for component caching
-            cache: new LRU({
-                max: 1000,
-                maxAge: 1000 * 60 * 15,
-            }),
-            // this is only needed when vue-server-renderer is npm-linked
-            basedir: resolve('./dist'),
-            // inject: false,
-            renderStyles: () => {
+// </editor-fold>
 
-            },
-            renderState: () => {
-
-            },
-            renderScripts: () =>{
-
-            },
-            shouldPreload: (file, type) => {
-                // https://fetch.spec.whatwg.org/#concept-request-destination
-                // console.log(file,type);
-                if (type === 'script' || type === 'style') {
-                    return true
-                }
-
-                if (type === 'font') {
-                    return /\.woff2$/.test(file)
-                }
-                if (type === 'image') {}
-            },
-            shouldPrefetch: () => {
-                return false
-            },
-            // shouldPrefetch: (file, type) => {
-            //     return false
-            // },
-            // recommended for performance
-            runInNewContext: false,
-        }))
-    }
-    catch (e) {
-        console.error(e)
-    }
-}
 
 app.get('*', (req, res) => {
     readyPromise.then(() => render(req, res))
 })
 
-// Running app
+
+// <editor-fold desc="Running app">
+
 console.log('\nSearching for a free guaranteed port...')
 portfinder.getPortPromise()
     .then(port => {
@@ -137,3 +125,5 @@ portfinder.getPortPromise()
     .catch(err => {
         console.error(err)
     })
+
+// </editor-fold>

@@ -22,7 +22,7 @@ module.exports = {
             // Skip some requests from being server-side rendered
             skipRequests: req => req.originalUrl === '/graphql',
             // See https://ssr.vuejs.org/guide/build-config.html#externals-caveats
-            nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
+            nodeExternalsWhitelist: [ /\.css$/, /\?vue&type=style/ ],
             // Enable node cluster for the production server
             clustered: false,
             // Static files Cache-Control maxAge value
@@ -57,6 +57,6 @@ module.exports = {
             error500Html: path.resolve(__dirname, './dist/500.html'),
             templatePath: path.resolve(__dirname, './dist/index.ssr.html'),
             serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js'),
-        }
-    }
+        },
+    },
 }

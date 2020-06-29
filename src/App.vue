@@ -8,6 +8,6 @@
     export default {
         name: "App",
 
-        title: ()  => 'fdfdfd',
+        title: ()  => 'Home',
     }
 </script>

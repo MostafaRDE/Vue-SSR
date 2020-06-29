@@ -9,8 +9,7 @@
         "email": "mostafa3.rostamdokht@gmail.com"
     },
     "scripts": {
-        "compile": "tsc -p .",
-        "dev": "nodemon server",
+        "serve": "nodemon server",
         "bs": "npm run build && npm run start",
         "start": "cross-env NODE_ENV=production node server",
         "build": "rimraf dist && npm run build:client && npm run build:server",
@@ -52,8 +51,6 @@
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-standard": "^4.0.1",
-        "ts-loader": "^7.0.5",
-        "typescript": "^3.9.5",
         "url-loader": "^4.1.0",
         "vue-loader": "^15.9.3",
         "vue-style-loader": "^4.1.2",

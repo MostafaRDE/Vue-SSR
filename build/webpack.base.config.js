@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -13,7 +12,7 @@ module.exports = {
         filename: '[name].[hash].js',
     },
     resolve: {
-        // extensions: [ '.ts', '.vue', '.js' ], // added .js
+        extensions: [ '.vue', '.js' ], // added .js
         alias: {
             'public': path.resolve(__dirname, '../public'),
         },
