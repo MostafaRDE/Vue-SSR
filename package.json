@@ -15,6 +15,8 @@
         "build": "rimraf dist && npm run build:client && npm run build:server",
         "build:client": "cross-env NODE_ENV=production webpack --mode production --config build/webpack.client.config.js --progress --hide-modules",
         "build:server": "cross-env NODE_ENV=production webpack --mode production --config build/webpack.server.config.js --progress --hide-modules",
+        "serve:main-styles": "webpack --mode=development --config=build/webpack.styles.config.js",
+        "build:main-styles": "webpack --mode=production --config=build/webpack.styles.config.js",
         "postinstall": "npm run build",
         "test": "NODE_ENV=test mocha",
         "lint": "eslint .",
