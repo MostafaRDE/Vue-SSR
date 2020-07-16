@@ -15,14 +15,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const config = {
     stats: 'none',
     output: {
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, '../../dist'),
         publicPath: '/dist/',
         filename: '[name].[hash].js',
     },
     resolve: {
         extensions: [ '.vue', '.js' ], // added .js
         alias: {
-            'public': path.resolve(__dirname, '../public'),
+            'public': path.resolve(__dirname, '../../public'),
         },
     },
     performance: {

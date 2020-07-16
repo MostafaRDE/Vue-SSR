@@ -36,7 +36,7 @@ if (isProd) {
     })
 }
 else {
-    readyPromise = require('./build/setup-dev-server')(
+    readyPromise = require('./builder/setup-dev-server')(
         app,
         path.resolve(__dirname, './public/index.template.html'),
         (bundle, options) => {
