@@ -123,7 +123,7 @@ config.module.rules.push(...[
 
 // </editor-fold>
 
-// <editor-fold desc="In Production Mode">
+// <editor-fold desc="In Development Mode">
 
 if (isDevelopment) {
 
@@ -180,7 +180,7 @@ if (isDevelopment) {
 
 // </editor-fold>
 
-// <editor-fold desc="In Development Mode">
+// <editor-fold desc="In Production Mode">
 
 else {
 
