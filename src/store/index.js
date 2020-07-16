@@ -12,7 +12,7 @@ export function createStore () {
         // IMPORTANT: state must be a function so the module can be
         // instantiated multiple times
         state: () => ({
-            items: {}
+            items: {},
         }),
 
         actions: {
@@ -22,13 +22,13 @@ export function createStore () {
                 // return fetchItem(id).then(item => {
                 //     commit('setItem', { id, item })
                 // })
-            }
+            },
         },
 
         mutations: {
             setItem (state, { id, item }) {
                 Vue.set(state.items, id, item)
-            }
-        }
+            },
+        },
     })
 }
