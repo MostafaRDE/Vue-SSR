@@ -80,6 +80,15 @@ const config = {
                 options: {
                     limit: 8192,
                     name: '[name].[ext]?[hash]',
+                    outputPath: 'images',
+                },
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'fonts',
+                    name: '[name].[ext]',
                 },
             },
         ],
@@ -108,12 +117,21 @@ config.module.rules.push(...[
     {
         test: /\.css$/,
         use: [
-            isDevelopment ? { loader: 'vue-style-loader' } : MiniCssExtractPlugin.loader,
+            isDevelopment ? { loader: 'vue-style-loader' } : {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    // only enable hot in development
+                    hmr: isDevelopment,
+                    // if hmr does not work, this is a forceful method.
+                    reloadAll: isDevelopment,
+                },
+            },
             {
                 loader: 'css-loader',
                 options: {
-                    modules: true,
-                    localIdentName: '[local]_[hash:base64:8]',
+                    modules: {
+                        localIdentName: '[local]_[hash:base64:8]',
+                    },
                 },
             },
         ],
@@ -123,7 +141,7 @@ config.module.rules.push(...[
 
 // </editor-fold>
 
-// <editor-fold desc="In Development Mode">
+// <editor-fold desc="In Production Mode">
 
 if (isDevelopment) {
 
@@ -180,7 +198,7 @@ if (isDevelopment) {
 
 // </editor-fold>
 
-// <editor-fold desc="In Production Mode">
+// <editor-fold desc="In Development Mode">
 
 else {
 
@@ -199,7 +217,12 @@ else {
     config.plugins.push(...[
         // ... Vue Loader plugin omitted
         new MiniCssExtractPlugin({
-            filename: 'style.css',
+            // filename: 'style.css',
+
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].[hash].css',
+            chunkFilename: '[id].[hash].css',
         }),
 
         new ExtractCssChunks({

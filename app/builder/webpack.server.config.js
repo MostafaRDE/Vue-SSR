@@ -4,7 +4,7 @@ const webpackNodeExternals = require('webpack-node-externals')
 const WebpackBar = require('webpackbar')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 
-const baseConfig = require('./webpack.base.config.js')
+const baseConfig = require('../../builder/webpack.base.config.js')
 
 module.exports = webpackMerge(baseConfig, {
     // Point entry to your app's server entry file
