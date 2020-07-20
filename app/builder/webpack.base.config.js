@@ -9,6 +9,7 @@ const Dotenv = require('dotenv-webpack')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // <editor-fold desc="Base config">
 
@@ -236,6 +237,8 @@ else {
         new Dotenv({
             path: './.env.production',
         }),
+
+        new CleanWebpackPlugin(),
     ])
 
 }
