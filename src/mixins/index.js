@@ -1,4 +1,2 @@
-import Vue from 'vue'
-import titleMixin from './title-mixin.js'
+import './title.js'
 
-Vue.mixin(titleMixin)

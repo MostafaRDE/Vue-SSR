@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 function getTitle (vm) {
     // components can simply provide a `title` option
     // which can be either a string or a function
@@ -15,7 +17,7 @@ const serverTitleMixin = {
         if (title) {
             this.$ssrContext.title = title
         }
-    }
+    },
 }
 
 const clientTitleMixin = {
@@ -24,10 +26,8 @@ const clientTitleMixin = {
         if (title) {
             document.title = title
         }
-    }
+    },
 }
 
 // `VUE_ENV` can be injected with `webpack.DefinePlugin`
-export default process.env.VUE_ENV === 'server'
-    ? serverTitleMixin
-    : clientTitleMixin
+Vue.mixin(process.env.VUE_ENV === 'server' ? serverTitleMixin : clientTitleMixin)
