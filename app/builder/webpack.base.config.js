@@ -82,6 +82,7 @@ const config = {
                     limit: 8192,
                     name: '[name].[ext]?[hash]',
                     outputPath: 'images',
+                    esModule: false,
                 },
             },
             {
