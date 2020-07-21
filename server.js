@@ -16,6 +16,15 @@ let isProd = process.env.NODE_ENV === 'production'
 // Create main app-server instance
 const app = express()
 
+// Serving static paths and caching
+const serve = (path, cache) => express.static(resolve(path), {
+    maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
+})
+
+// static paths
+app.use('/dist', serve('./dist', true))
+app.use('/', serve('./public', true))
+
 
 // <editor-fold desc="Rendering commands">
 let readyPromise = null, renderer = null
