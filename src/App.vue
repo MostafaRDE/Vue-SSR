@@ -1,6 +1,6 @@
 <template>
-    <div id="system">
-        fdfsdf
+    <div id="app">
+
     </div>
 </template>
 

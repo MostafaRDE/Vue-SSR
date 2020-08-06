@@ -21,7 +21,7 @@ const config = {
         filename: '[name].[hash].js',
     },
     resolve: {
-        extensions: [ '.vue', '.js' ], // added .js
+        extensions: [ '.vue', '.js', '.styl' ], // added .js
         alias: {
             'public': path.resolve(__dirname, '../../public'),
         },
@@ -139,11 +139,29 @@ config.module.rules.push(...[
         ],
     },
 
+    // this will apply to both plain `.stylus` files
+    // AND `<style>` blocks in `.vue` files
+    {
+        test: /\.styl(us)?$/,
+        use: [
+            {
+                loader: ExtractCssChunks.loader,
+                options: {
+                    hmr: isDevelopment,
+                    // if hmr does not work, this is a forceful method.
+                    reloadAll: true,
+                },
+            },
+            'css-loader',
+            'stylus-loader',
+        ],
+    },
+
 ])
 
 // </editor-fold>
 
-// <editor-fold desc="In Production Mode">
+// <editor-fold desc="In Development Mode">
 
 if (isDevelopment) {
 
@@ -157,38 +175,10 @@ if (isDevelopment) {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: '[name].[hash].css',
-            // chunkFilename: isProd ? '[id].[hash].css' : '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
 
         new webpack.optimize.ModuleConcatenationPlugin(),
-
-        // new ExtractTextPlugin({
-        //     filename: 'common.[chunkhash].css'
-        // }),
-        // Remove unused CSS using purgecss. See https://github.com/FullHuman/purgecss
-        // for more information about purgecss.
-        new PurgecssPlugin({
-            paths: glob.sync([
-                path.join(__dirname, './../src/index.html'),
-                path.join(__dirname, './../src/assets/styles/index.styl'),
-                path.join(__dirname, './../src/App.vue'),
-                path.join(__dirname, './../src/**/*.vue'),
-                path.join(__dirname, './../src/**/*.js'),
-            ], { nodir: true }),
-            // extractors: [
-            //     {
-            //         extractor: class TailwindExtractor {
-            //             static extract(content) {
-            //                 return content.match(/[A-z0-9-_:\/]+/g) || []
-            //             }
-            //         },
-            //         extensions: [ 'html', 'vue', 'js', 'styl' ],
-            //     },
-            // ],
-            whitelist: [],
-            whitelistPatterns: [],
-        }),
 
         new Dotenv({
             path: './.env.development',
@@ -200,7 +190,7 @@ if (isDevelopment) {
 
 // </editor-fold>
 
-// <editor-fold desc="In Development Mode">
+// <editor-fold desc="In Production Mode">
 
 else {
 
@@ -231,8 +221,32 @@ else {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: '[name].[hash].css',
-            // chunkFilename: isProd ? '[id].[hash].css' : '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
+        }),
+
+        // Remove unused CSS using purgecss. See https://github.com/FullHuman/purgecss
+        // for more information about purgecss.
+        new PurgecssPlugin({
+            paths: glob.sync([
+                path.join(__dirname, '../../public/index.template.html'),
+                path.join(__dirname, '../../src/App.vue'),
+                path.join(__dirname, '../../src/**/*.vue'),
+                path.join(__dirname, '../../src/**/*.js'),
+                path.join(__dirname, '../../src/**/*.css'),
+                path.join(__dirname, '../../src/**/*.styl'),
+            ], { nodir: true }),
+            extractors: [
+                {
+                    extractor: class TailwindExtractor {
+                        static extract(content) {
+                            return content.match(/[A-z0-9-_:\/]+/g) || []
+                        }
+                    },
+                    extensions: [ 'html', 'vue', 'js', 'styl' ],
+                },
+            ],
+            whitelist: [],
+            whitelistPatterns: [],
         }),
 
         new Dotenv({

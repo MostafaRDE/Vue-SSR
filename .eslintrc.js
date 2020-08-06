@@ -20,7 +20,9 @@ module.exports = {
         'comma-dangle': [ 'error', 'always-multiline' ],
         'comma-spacing': [ 'error', { 'before': false, 'after': true } ],
         'eqeqeq': 'warn',
-        'indent': [ 'error', 4 ],
+        'indent': [ 'error', 4, {
+            'SwitchCase': 1,
+        } ],
         'init-declarations': 'off',
         'linebreak-style': [ 'error', 'windows' ],
         'no-cond-assign': [ 'error', 'always' ],

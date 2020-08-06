@@ -11,7 +11,7 @@ if (window.__INITIAL_STATE__) {
 
 // this assumes App.vue template root element has `id="app"`
 router.onReady(() => {
-    app.$mount('#system')
+    app.$mount('#app')
 })
 
 export default { app, router, store }

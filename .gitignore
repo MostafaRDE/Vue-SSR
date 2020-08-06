@@ -6,3 +6,9 @@ sessions/
 /uploads/
 package-lock.json
 yarn.lock
+
+.env
+.env.development
+.env.production
+.env.server
+.env.test

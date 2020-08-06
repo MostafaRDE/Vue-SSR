@@ -1,0 +1,60 @@
+@import "../../config.styl"
+
+.tabs
+    .tabs-top .tabs-tab
+        padding-bottom 12px
+        padding-top 10px
+        display block
+
+    li
+        margin-left .5px
+        margin-right .5px
+        font-size 13px
+        font-weight 900
+        transform-origin 0 110%
+        -webkit-transition background-color 1s cubic-bezier(.645,.045,.355,1)
+        -moz-transition background-color 1s cubic-bezier(.645,.045,.355,1)
+        transition background-color 1s cubic-bezier(.645,.045,.355,1)
+        / .ltr &
+            -webkit-transform skew(20deg)
+            -moz-transform skew(20deg)
+            transform skew(20deg)
+        / .rtl &
+            -webkit-transform skew(-20deg)
+            -moz-transform skew(-20deg)
+            transform skew(-20deg)
+        &.active, &:hover
+            background-color #ff0e1f
+        .tabs-tab
+            padding 12px 47px
+            color #fff
+            line-height 24px
+            / .ltr &
+                -webkit-transform skew(-20deg)
+                -moz-transform skew(-20deg)
+                transform skew(-20deg)
+            / .rtl &
+                -webkit-transform skew(20deg)
+                -moz-transform skew(20deg)
+                transform skew(20deg)
+        img
+            width 14px
+        &:not(disabled)
+            cursor pointer
+
+.small .tabs li span
+    padding-bottom 9px !important
+    padding-top 8px !important
+    span
+        font-size $font-size-sm
+.x-small .tabs li span
+    padding-bottom 6px !important
+    padding-top 6px !important
+    span
+        font-size $font-size-xs
+.xx-small .tabs li span
+    padding-bottom 3px !important
+    padding-top 4px !important
+    span
+        font-size $font-size-xxs
+
