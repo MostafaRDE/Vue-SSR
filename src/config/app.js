@@ -65,4 +65,17 @@ module.exports = {
 
     locale: global.env('LOCALE', 'en'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Fallback Locale
+    |--------------------------------------------------------------------------
+    |
+    | The fallback locale determines the locale to use when the current one
+    | is not available. You may change the value to correspond to any of
+    | the language folders that are provided through your application.
+    |
+    */
+
+    fallbackLocale: global.env('FALLBACK_LOCALE', 'en'),
+
 }
