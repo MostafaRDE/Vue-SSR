@@ -9,10 +9,6 @@ module.exports = {
     },
     'extends': [
         'eslint:recommended',
-        'plugin:vue/vue3-recommended',
-        'plugin:vue/essential',
-        'eslint:recommended',
-        '@vue/typescript/recommended',
     ],
     'parserOptions': {
         'sourceType': 'module',
@@ -40,19 +36,45 @@ module.exports = {
         'semi': [ 'error', 'never' ],
         'space-infix-ops': [ 'error', { 'int32Hint': false } ],
         'strict': 'off',
-        'vue/html-indent': 'off',
-        'vue/script-indent': [ 'error', 4, {
-            'baseIndent': 1,
-            'switchCase': 1,
-            'ignores': [],
-        } ],
     },
     overrides: [
         {
             'files': [ '*.vue' ],
+            'extends': [
+                'plugin:vue/vue3-recommended',
+                'plugin:vue/essential',
+                '@vue/typescript/recommended',
+            ],
             'rules': {
                 'indent': 'off',
+                'vue/html-indent': 'off',
+                'vue/script-indent': [ 'error', 4, {
+                    'baseIndent': 1,
+                    'switchCase': 1,
+                    'ignores': [],
+                } ],
             },
+        },
+        {
+            'files': [ '**/*.ts', '**/*.tsx' ],
+            'globals': {
+                'Atomics': 'readonly',
+                'SharedArrayBuffer': 'readonly',
+            },
+            'parser': '@typescript-eslint/parser',
+            'parserOptions': {
+                'ecmaFeatures': { 'jsx': true },
+                'ecmaVersion': 2018,
+                'sourceType': 'module',
+                'project': './tsconfig.json',
+            },
+            'plugins': [
+                '@typescript-eslint',
+            ],
+            'extends': [
+                'plugin:@typescript-eslint/eslint-recommended',
+                'plugin:@typescript-eslint/recommended',
+            ],
         },
     ],
 }
