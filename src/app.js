@@ -42,6 +42,9 @@ import { i18n } from './locals'
 // Import mixins
 import './mixins'
 
+// Load Plugins
+global.loadPlugins()
+
 /*
 |--------------------------------------------------------------------------
 | CSS Framework Loader
@@ -51,7 +54,7 @@ import './mixins'
 |
 */
 
-import './app/assets/restyl/index.styl'
+// import './app/assets/restyl/index.styl'
 
 /*
 |--------------------------------------------------------------------------

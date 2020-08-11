@@ -8,14 +8,12 @@
 |
 */
 
-const path = require('path')
 const express = require('express')
 
-const resolve = file => path.resolve(__dirname, file)
 const isProd = global.node_env === 'production'
 
 // Serving static paths and caching
-global.serve = (path, cache) => express.static(resolve(path), {
+global.serve = (path, cache) => express.static(global.resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
 })
 

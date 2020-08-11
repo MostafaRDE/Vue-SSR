@@ -1,0 +1,15 @@
+{
+    "name": "OKEX Bitcoin Exchange",
+    "short_name": "OKEX",
+    "start_url": "fa",
+    "display": "standalone",
+    "theme_color": "#0476F2",
+    "background_color": "#fff",
+    "icons": [
+        {
+            "src": "",
+            "sizes": "",
+            "type": ""
+        }
+    ]
+}

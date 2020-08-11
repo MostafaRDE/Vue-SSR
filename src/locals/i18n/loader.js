@@ -2,7 +2,7 @@
 
 const requireLang = require.context('./', true, /\.json$/)
 
-const messages = {}
+let messages = {}
 
 for (const file of requireLang.keys()) {
     const path = file.replace(/(\.\/|\.json$)/g, '').split('/')
@@ -15,5 +15,11 @@ for (const file of requireLang.keys()) {
         return o[s]
     }, messages)
 }
+
+// Export langs from langs object to root object
+messages = { ...messages['langs'] }
+
+// Add languages supports in global variable
+global.langs = Object.keys(messages)
 
 export default messages

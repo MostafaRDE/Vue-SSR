@@ -1,5 +1,8 @@
 import { createApp } from './app.js'
 
+// Load Client Plugins
+global.loadPlugins('client')
+
 // client-specific bootstrapping logic...
 
 const { app, router, store } = createApp()

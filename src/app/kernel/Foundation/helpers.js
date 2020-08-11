@@ -10,7 +10,9 @@
 
 const helpers = []
 
-helpers.push(import('./Helpers/foundation.js'))
+require.context('./Helpers', true, /\.js$/, 'sync').keys().forEach(r => {
+    helpers.push(require('./Helpers/' + r.substring(2, r.length)))
+})
 
 helpers.forEach(helper => {
     Object.keys(helper).forEach(key => {

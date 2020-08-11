@@ -14,6 +14,18 @@ global.app = express()
 
 /*
 |--------------------------------------------------------------------------
+| Root Directory Resolver
+|--------------------------------------------------------------------------
+|
+| After, we create root directory resolver in global variable.
+|
+*/
+
+const path = require('path')
+global.resolve = file => path.resolve(__dirname, file)
+
+/*
+|--------------------------------------------------------------------------
 | Bootstrapping and config application
 |--------------------------------------------------------------------------
 |

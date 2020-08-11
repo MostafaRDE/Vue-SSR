@@ -1,5 +1,8 @@
 import { createApp } from './app.js'
 
+// Load Server Plugins
+global.loadPlugins('server')
+
 const { app, router, store, i18n } = createApp()
 
 export { app, router, store, i18n }
@@ -24,9 +27,9 @@ export default context => {
             }
 
 
-            context.lang = store.state.route.params.lang || 'fa'
-            if (context.lang !== 'en' && context.lang !== 'fa' || context.lang === '')
-                context.lang = 'fa'
+            context.lang = store.state.route.params.lang || global.env('APP_LOCALE')
+            if (!global.langs.includes(context.lang))
+                context.lang = global.env('APP_LOCALE')
 
             i18n.locale = context.lang
 
@@ -45,29 +48,17 @@ export default context => {
                 store,
                 route: router.currentRoute,
             }))).then(() => {
-            // After all preFetch hooks are resolved, our store is now
-            // filled with the state needed to render the app.
-            // Expose the state on the render context, and let the request handler
-            // inline the state in the HTML response. This allows the client-side
-            // store to pick-up the server-side state without having to duplicate
-            // the initial data fetching on the client.
+                // After all preFetch hooks are resolved, our store is now
+                // filled with the state needed to render the app.
+                // Expose the state on the render context, and let the request handler
+                // inline the state in the HTML response. This allows the client-side
+                // store to pick-up the server-side state without having to duplicate
+                // the initial data fetching on the client.
 
                 context.state = store.state
                 resolve(app)
             }).catch(reject)
 
-            // This `rendered` hook is called when the app has finished rendering
-            // context.rendered = () => {
-            //     // After the app is rendered, our store is now
-            //     // filled with the state from our components.
-            //     // When we attach the state to the context, and the `template` option
-            //     // is used for the renderer, the state will automatically be
-            //     // serialized and injected into the HTML as `window.__INITIAL_STATE__`.
-            //     context.state = store.state
-            // }
-
-            // the Promise should resolve to the app instance so it can be rendered
-            // resolve(app)
         }, reject)
     })
 }

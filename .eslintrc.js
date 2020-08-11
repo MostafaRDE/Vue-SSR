@@ -9,6 +9,10 @@ module.exports = {
     },
     'extends': [
         'eslint:recommended',
+        'plugin:vue/vue3-recommended',
+        'plugin:vue/essential',
+        'eslint:recommended',
+        '@vue/typescript/recommended',
     ],
     'parserOptions': {
         'sourceType': 'module',
@@ -31,10 +35,24 @@ module.exports = {
         'no-inline-comments': 'off',
         'no-unused-vars': [ 'off', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false } ],
         'object-curly-spacing': [ 'error', 'always' ],
-        'one-var': 'off', // ["error", "never"]
+        'one-var': 'off',
         'quotes': [ 'error', 'single' ],
         'semi': [ 'error', 'never' ],
         'space-infix-ops': [ 'error', { 'int32Hint': false } ],
         'strict': 'off',
+        'vue/html-indent': 'off',
+        'vue/script-indent': [ 'error', 4, {
+            'baseIndent': 1,
+            'switchCase': 1,
+            'ignores': [],
+        } ],
     },
+    overrides: [
+        {
+            'files': [ '*.vue' ],
+            'rules': {
+                'indent': 'off',
+            },
+        },
+    ],
 }
