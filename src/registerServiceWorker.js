@@ -2,8 +2,7 @@
 
 import { register } from 'register-service-worker'
 
-// if (process.env.NODE_ENV === 'production') {
-register('http://localhost:8080/service-worker.js', {
+register(`http://localhost:8080/${ process.env.NODE_ENV === 'development' ? 'noop-' : '' }service-worker.js`, {
     ready() {
         console.log(
             'App is being served from cache by a service worker.\n' +
@@ -31,4 +30,3 @@ register('http://localhost:8080/service-worker.js', {
         console.error('Error during service worker registration:', error)
     },
 })
-// }
