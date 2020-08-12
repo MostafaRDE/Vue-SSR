@@ -21,7 +21,7 @@ const config = {
         filename: '[name].[hash].js',
     },
     resolve: {
-        extensions: [ '.vue', '.js', '.styl' ], // added .js
+        extensions: [ '.vue', '.js', '.ts', '.tsx', '.styl' ], // added .js
         alias: {
             'public': path.resolve(__dirname, '../../public'),
         },
@@ -74,6 +74,11 @@ const config = {
                     /node_modules/.test(file) &&
                     !/\.vue\.js/.test(file)
                 ),
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,

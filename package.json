@@ -75,6 +75,7 @@
         "stylus": "^0.54.8",
         "stylus-loader": "^3.0.2",
         "terser-webpack-plugin": "^3.0.6",
+        "ts-loader": "^8.0.2",
         "typescript": "^3.9.7",
         "url-loader": "^4.1.0",
         "vue-loader": "^15.9.3",
