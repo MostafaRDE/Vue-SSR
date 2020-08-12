@@ -2,6 +2,7 @@ import { createApp } from './app.js'
 
 // Load Client Plugins
 global.loadPlugins('client')
+import './registerServiceWorker.js'
 
 // client-specific bootstrapping logic...
 

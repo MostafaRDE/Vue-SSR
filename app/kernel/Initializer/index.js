@@ -18,13 +18,19 @@ global.node_env = process.env.NODE_ENV
 |
 */
 
-require('dotenv').config({ path: '.env' })
-require('dotenv').config({ path: `.env.${ process.env.NODE_ENV }` })
+const fs = require('fs')
+
+if (fs.existsSync(global.resolve('.env')))
+    require('dotenv').config({ path: '.env' })
+
+if (fs.existsSync(global.resolve(`.env.${ process.env.NODE_ENV }`)))
+    require('dotenv').config({ path: `.env.${ process.env.NODE_ENV }` })
 
 // If we will processing of server, then add env server variables to
 // *process.env*
 if (!process.browser) {
-    require('dotenv').config({ path: '.env.server' })
+    if (fs.existsSync(global.resolve('.env.server')))
+        require('dotenv').config({ path: '.env.server' })
 }
 
 /*

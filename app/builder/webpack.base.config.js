@@ -258,7 +258,7 @@ else {
             path: './.env.production',
         }),
 
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
     ])
 
 }
