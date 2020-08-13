@@ -12,6 +12,8 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+let appDir = path.dirname(require.main.filename)
+
 // <editor-fold desc="Base config">
 
 const config = {
@@ -188,7 +190,7 @@ if (isDevelopment) {
 
     ])
 
-    if (fs.existsSync(global.resolve('.env.development')))
+    if (fs.existsSync(path.join(appDir, '.env.development')))
         config.plugins.push(new Dotenv({ path: './.env.development' }))
 
 }
@@ -254,12 +256,10 @@ else {
             whitelistPatterns: [],
         }),
 
-
-
         // new CleanWebpackPlugin(),
     ])
 
-    if (fs.existsSync(global.resolve('.env.production')))
+    if (fs.existsSync(path.join(appDir, '.env.production')))
         config.plugins.push(new Dotenv({ path: './.env.production' }))
 
 }
