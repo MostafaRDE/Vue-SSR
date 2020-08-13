@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const glob = require('glob-all')
 const webpack = require('webpack')
@@ -185,11 +186,10 @@ if (isDevelopment) {
 
         new webpack.optimize.ModuleConcatenationPlugin(),
 
-        new Dotenv({
-            path: './.env.development',
-        }),
-
     ])
+
+    if (fs.existsSync(global.resolve('.env.development')))
+        config.plugins.push(new Dotenv({ path: './.env.development' }))
 
 }
 
@@ -254,12 +254,13 @@ else {
             whitelistPatterns: [],
         }),
 
-        new Dotenv({
-            path: './.env.production',
-        }),
+
 
         // new CleanWebpackPlugin(),
     ])
+
+    if (fs.existsSync(global.resolve('.env.production')))
+        config.plugins.push(new Dotenv({ path: './.env.production' }))
 
 }
 
