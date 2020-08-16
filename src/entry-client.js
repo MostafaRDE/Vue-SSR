@@ -2,21 +2,18 @@ import { createApp } from './app.js'
 
 // <editor-fold desc="PWA">
 
-let pwaStatus = global.env('PWA', false)
+let pwaStatus = process.env.PWA
 if (typeof pwaStatus === 'string')
     pwaStatus = pwaStatus === 'true'
-
+console.log('pwaStatus', typeof pwaStatus)
 if (pwaStatus)
     import ('./registerServiceWorker.js')
 
 // </editor-fold>
 
-// Load Client Plugins
-global.loadPlugins('client')
-
 // client-specific bootstrapping logic...
 
-const { app, router, store } = createApp()
+const { app, router, store, i18n } = createApp()
 
 if (window.__INITIAL_STATE__) {
     // We initialize the store state with the data injected from the server
@@ -25,7 +22,10 @@ if (window.__INITIAL_STATE__) {
 
 // this assumes App.vue template root element has `id="app"`
 router.onReady(() => {
-    app.$mount('#app')
+    app.$mount('#system')
 })
 
-export default { app, router, store }
+export { app, router, store, i18n }
+
+// Load Client Plugins
+global.loadPlugins('client')

@@ -1,11 +1,11 @@
 import { createApp } from './app.js'
 
-// Load Server Plugins
-global.loadPlugins('server')
-
 const { app, router, store, i18n } = createApp()
 
 export { app, router, store, i18n }
+
+// Load Server Plugins
+global.loadPlugins('server')
 
 export default context => {
     // since there could potentially be asynchronous route hooks or components,
@@ -14,6 +14,11 @@ export default context => {
     return new Promise((resolve, reject) => {
 
         const { app, router, store, i18n } = createApp()
+
+        context.meta = app.$meta()
+
+        store.state.user_auth = context.is_auth
+        store.state.is_mobile = context.is_mobile
 
         // set server-side router's location
         router.push(context.url)

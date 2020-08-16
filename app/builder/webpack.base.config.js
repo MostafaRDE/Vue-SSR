@@ -152,12 +152,13 @@ config.module.rules.push(...[
     {
         test: /\.styl(us)?$/,
         use: [
-            {
-                loader: ExtractCssChunks.loader,
+            isDevelopment ? { loader: 'vue-style-loader' } : {
+                loader: MiniCssExtractPlugin.loader,
                 options: {
+                    // only enable hot in development
                     hmr: isDevelopment,
                     // if hmr does not work, this is a forceful method.
-                    reloadAll: true,
+                    reloadAll: isDevelopment,
                 },
             },
             'css-loader',
