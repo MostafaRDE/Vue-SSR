@@ -53,6 +53,14 @@ module.exports = {
                     'switchCase': 1,
                     'ignores': [],
                 } ],
+                'vue/max-attributes-per-line': [ 'off', {
+                    'singleline': 1,
+                    'multiline': {
+                        'max': 1,
+                        'allowFirstLine': false,
+                    },
+                } ],
+                'vue/html-closing-bracket-newline': 'off',
             },
         },
         {
