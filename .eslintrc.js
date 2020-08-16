@@ -43,7 +43,7 @@ module.exports = {
             'extends': [
                 'plugin:vue/vue3-recommended',
                 'plugin:vue/essential',
-                '@vue/typescript/recommended',
+                // '@vue/typescript/recommended',
             ],
             'rules': {
                 'indent': 'off',
